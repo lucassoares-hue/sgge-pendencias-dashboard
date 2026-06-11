@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de Tarefas - SGGE</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>Lista de Tarefas - SGGE</h1>
+    <img src="assets/gge-logo.png" alt="Logo GGE" class="logo-gge">
+  </header>
+
+  <main class="container">
+
+    <!-- Mensagens de status (erro / aviso) -->
+    <div id="status-message" class="status-message" style="display:none;"></div>
+    <div id="loading-indicator" class="loading-indicator" style="display:none;">
+      <span>Carregando dados...</span>
+    </div>
+
+    <!-- Filtros -->
+    <section class="filters-bar">
+      <div class="filter-group">
+        <label for="filter-colecao">Coleção</label>
+        <select id="filter-colecao"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-modulo">Módulo</label>
+        <select id="filter-modulo"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-frente">Frente</label>
+        <select id="filter-frente"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-ano">Ano</label>
+        <select id="filter-ano"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-escola">Escola</label>
+        <select id="filter-escola"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-status">Status</label>
+        <select id="filter-status"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-prioridade">Prioridade</label>
+        <select id="filter-prioridade"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-responsavel">Responsável</label>
+        <select id="filter-responsavel"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-situacao">Situação da tarefa</label>
+        <select id="filter-situacao">
+          <option value="">Todas</option>
+          <option value="pendentes">Pendentes</option>
+          <option value="resolvidas">Resolvidas</option>
+        </select>
+      </div>
+      <div class="filter-group filter-actions">
+        <label>&nbsp;</label>
+        <button id="btn-clear-filters" type="button">Limpar filtros</button>
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section class="cards-grid">
+      <div class="card">
+        <div class="card-label">Total de Erros Reportados</div>
+        <div class="card-value" id="card-total-erros">-</div>
+      </div>
+      <div class="card card-alert">
+        <div class="card-label">Tarefas Pendentes</div>
+        <div class="card-value" id="card-pendentes">-</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Tempo Médio de Resolução</div>
+        <div class="card-value" id="card-tempo-medio">-</div>
+      </div>
+      <div class="card card-success">
+        <div class="card-label">Tarefas Resolvidas</div>
+        <div class="card-value" id="card-resolvidas">-</div>
+      </div>
+    </section>
+
+    <!-- Gráficos -->
+    <section class="charts-grid">
+      <div class="chart-card">
+        <h2>Origem dos Erros</h2>
+        <div class="chart-wrapper chart-wrapper-small">
+          <canvas id="chart-origem"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h2>Erro por Módulo</h2>
+        <div class="chart-wrapper">
+          <canvas id="chart-modulo"></canvas>
+        </div>
+      </div>
+      <div class="chart-card chart-card-fixed">
+        <h2>Quantidade de Erros por Frente</h2>
+        <div class="chart-scroll-container">
+          <div id="chart-frente-inner" class="chart-frente-inner">
+            <canvas id="chart-frente"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="chart-card school-ranking-card">
+        <div class="chart-header">
+          <h2>Escolas por Volume de Solicitações</h2>
+          <p>Total de chamados registrados por escola</p>
+        </div>
+        <div id="school-ranking" class="school-ranking"></div>
+      </div>
+    </section>
+
+    <!-- Tabela detalhada -->
+    <section class="table-section">
+      <div class="table-header">
+        <h2>Pendências Detalhadas</h2>
+        <span id="table-count" class="table-count">0 registros</span>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Escola</th>
+              <th>Coleção</th>
+              <th>Módulo</th>
+              <th>Ano</th>
+              <th>Frente</th>
+              <th>Categoria</th>
+              <th>Prioridade</th>
+              <th>Responsável</th>
+              <th>Prazo</th>
+              <th>Status</th>
+              <th>Descrição do Problema</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="config.js"></script>
+  <script src="utils.js"></script>
+  <script src="charts.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
